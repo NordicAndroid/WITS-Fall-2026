@@ -1,0 +1,193 @@
+/*
+ -------- Kilder brugt --------
+Position: https://www.w3schools.com/css/css_position.asp
+Borders: https://www.w3schools.com/css/css_border.asp
+Margin: https://www.w3schools.com/css/css_margin.asp
+Padding: https://www.w3schools.com/css/css_padding.asp
+Height/width: https://www.w3schools.com/css/css_height_width.asp
+Flex-box: https://www.w3schools.com/css/css3_flexbox.asp ; https://css-tricks.com/snippets/css/a-guide-to-flexbox/ ; https://www.joshwcomeau.com/css/center-a-div/
+
+Hvis i will se hvordan hver del er opbygget kan i fjerne kommentar symbolerne omkring background-color: på de forskellige dokumenter.
+ */
+
+body{
+    margin: 0;
+    position: relative;
+}
+
+.banner {
+    width: 100%;
+    height: 100px;
+    background-color: lightslategray;
+    margin: 0; /* Kanten udenfor højedne og bredden*/
+    position: fixed; /* Fastsætter elementet et bestemt sted på hjemmesiden. Gør at navibaren altid er i toppen af skærmen*/
+}
+li {
+    list-style: none;
+}
+
+.center{
+    /* Egne Parameter */
+    width: 100%;
+
+    /* Parameter for Child komponenter*/
+    display: flex; /* Definerer kontaineren som en flexbox */
+    flex-direction: column; /* Sorterer child elementer lodret*/
+    justify-content: center; /* Centrerer child elementer i midten af kontaineren lodret*/
+    align-items: center; /* Centrerer child elementer i midten af kontaineren vandret*/
+    gap: 25px; /* Bestemmer afstanden mellem child elemeter*/
+}
+
+.containerRow{
+    /* Egne Parameter */
+    width: 100%;
+    /* Hvis man ikke sætter en hæjde vil kontaineren skalere med inholdet*/
+
+    /* Parameter for Child komponenter*/
+    display: flex;
+    flex-direction: row; /* Sorterer child elementer vandret*/
+    gap: 2.5%; /* Procent virker kun vandret siden hjemmesiden kan være uendeligt lang og her derfor ikken en defineret længde*/
+}
+
+.containerCol{
+    /* Egne Parameter */
+    width: 100%;
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.topbar{
+    /* Egne Parameter */
+    width: 100%;
+    padding: 1%; /* Intern afstand fra kontainerens side til child elementer*/
+    height: 50px;
+    background-color: lightgray;
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    font-size: x-large; /* Styrer størrlsen af teksten i kontaineren*/
+}
+
+.sidebar{
+    flex-basis: 20%; /* Bestemmer den originale størrelse af et flex element*/
+    background-color: lightgrey;
+    padding: 1%;
+}
+
+.feed{
+    /* Egne Parameter */
+    background-color: lightgrey;
+    padding: 1%;
+    flex-basis: 80%;
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.post {
+    /* Egne Parameter */
+    width: 100%;
+    background-color: white;
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.postnametime{
+    /* Egne Parameter */
+    padding: 0.5%;
+    flex-basis: 20%;
+    height: 58px;
+    /*background-color: lightblue;*/
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+}
+
+.postname{
+    /* Egne Parameter */
+    flex-grow: 1; /* Bestemmer hvor meget den vil vokse i forhold til andre elementer i flex-boxen*/
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: center;
+    /*background-color: lightpink;*/
+}
+
+.posttime{
+    /* Egne Parameter */
+    flex-grow: 1;
+    /*background-color: lightcyan;*/
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    justify-content: center;
+    font-size: small;
+}
+
+.posttitle{
+    /* Egne Parameter */
+    padding: 0.5;
+    flex-grow: 1;
+    /*background-color: lightslategray;*/
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: Row;
+    align-items: center;
+    font-size: x-large;
+}
+.postimage{
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: Row;
+    align-items: center;
+    gap: 10px;
+}
+.posttext{
+    width: 95%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.comment{
+    /* Egne Parameter */
+    width: 95%;
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-color: lightslategray;
+}
+
+.commentUserInfo{
+    width: 99%;
+    padding: 5px;
+    background-color: lightslategray;
+}
+
+.commentText{
+    width: 100%;
+    padding: 5px;
+}
