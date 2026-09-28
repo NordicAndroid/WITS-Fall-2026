@@ -13,17 +13,17 @@ Hvis i will se hvordan hver del er opbygget kan i fjerne kommentar symbolerne om
 body{
     margin: 0;
     padding: 0;
-
+    overflow: hidden;
 }
 
 .banner {
     width: 100%;
-    height: 100px;
+    height: 75px;
     background-color: lightslategray;
     margin: 0;
     padding: 0;
     overflow: auto;
-    position: fixed;
+    position: relative;
     top: 0;
 }
 li {
@@ -33,13 +33,11 @@ li {
 .center{
     /* Egne Parameter */
     width: 100%;
+    height: 980px;
+    overflow: auto;
 
-    /* Parameter for Child komponenter*/
-    display: flex; /* Definerer kontaineren som en flexbox */
-    flex-direction: column; /* Sorterer child elementer lodret*/
-    justify-content: center; /* Centrerer child elementer i midten af kontaineren lodret*/
-    align-items: center; /* Centrerer child elementer i midten af kontaineren vandret*/
-    gap: 25px; /* Bestemmer afstanden mellem child elemeter*/
+    display: flex;
+    flex-direction: column;
 }
 
 .containerRow{
@@ -66,14 +64,15 @@ li {
 .topbar{
     /* Egne Parameter */
     width: 100%;
-    padding: 1%; /* Intern afstand fra kontainerens side til child elementer*/
-    height: 50px;
+    height: 70px;
     background-color: lightgray;
+    margin-top: 25px;
 
     /* Parameter For Child komponenter*/
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 25px;
     font-size: x-large; /* Styrer størrlsen af teksten i kontaineren*/
 }
@@ -86,7 +85,7 @@ li {
 
 .feed{
     /* Egne Parameter */
-    background-color: lightgrey;
+    /*background-color: lightgrey;*/
     padding: 1%;
     flex-basis: 80%;
 
@@ -95,13 +94,15 @@ li {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 25px;
+    gap: 12.5px;
 }
 
 .post {
     /* Egne Parameter */
     width: 100%;
     background-color: white;
+    border-style: solid;
+    border-color: lightslategray;
 
     /* Parameter For Child komponenter*/
     display: flex;

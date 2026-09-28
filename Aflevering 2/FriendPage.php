@@ -16,7 +16,7 @@
 <header class="banner">
 </header>
 <div class="center">
-    <div class="containerCol" style="padding-top: 125px;width: 60%; justify-content: center; align-items: center;">
+    <div class="containerCol" style="width: 60%;align-self: center">
         <div class="topbar" style="justify-content: space-between">
             <?php
             $userid = $_GET["userid"];
@@ -30,7 +30,7 @@
             ?>
 
         </div>
-        <div class="containerRow" style="justify-content: center; width: 95%;">
+        <div class="containerRow" style="justify-content: center; width: 95%;align-self: center">
             <div class="sidebar">
                 <ul>
                     <li><a href="Dashboard.php"> Dashboard</a></li>
@@ -48,7 +48,6 @@
                     $imageId = get_iids_by_pid($pid);
 
                     // -------- Variabler -------- //
-
                     $postdate = $postInfo['date'];
                     $titel = $postInfo['title'];
 

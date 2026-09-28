@@ -6,14 +6,13 @@
     <title>Dashboard</title>
 </head>
 <body>
-<header class="banner"> <!-- Starten på en navigationsbar -->
-</header>
-<div class="center"> <!-- Centrere hele siden efter navigationsbaren -->
-<div class="containerCol" style="padding-top: 125px;width: 60%; justify-content: center; align-items: center;"> <!-- style kommandoen trumfer det der står i style.css -->
-    <div class="topbar" style="justify-content: center"> <!-- Generisk velkommen når personen har logget ind -->
-        Velkommen Tilbage Fnavn Enavn <!-- Placeholder: Kan ændres når vi for lavet log in systemet -->
+<header class="banner""></header>
+<div class='center'>
+<div class="containerCol" style="width: 60%;align-self: center">
+    <div class="topbar">
+        Velkommen Tilbage Fnavn Enavn
     </div>
-    <div class="containerRow" style="justify-content: center; width: 95%;"> <!-- Er ikke helt sikker på om vi kommer til at bruge denne endnu. Er der bare for nu-->
+    <div class="containerRow" style="width: 95%;align-self: center">
         <div class="sidebar">
             <ul>
                 <li><a href="Dashboard.php"> Dashboard</a></li>
@@ -41,7 +40,9 @@
                     $posttext = $postInfo['content'];
 
                     // -------- HTMl yil opslaget -------- //
-                    echo "<div class='post' id='$pid'>"; // Starter selve opbygningen af opslaget
+                    echo "<div id='$pid'></div>";
+
+                    echo "<div class='post'>"; // Starter selve opbygningen af opslaget
 
                     //Navn, tid og Titel på oplæg
                     echo "<div class='containerRow' style='gap: 10px; background-color: lightslategray;'>"; // Styrer orienteringen, placering og størelsen af hele titelbaren.
