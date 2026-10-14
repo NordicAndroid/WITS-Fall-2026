@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<?php
+// -------- Forbindelse til Databasen -------- //
+require_once '/var/www/wits.ruc.dk/db.php';
+
+// -------- Erklering a globale variabler -------- //
+$loguid = $logpass = $loginfo = $logFName = $logEName = $login= "";
+$cookie_name = "username";
+
+// -------- Modtagelse a Form -------- //
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    if (isset($_POST["loguid"])){$loguid = $_POST["loguid"];}
+    $logpass = $_POST["logpass"];
+    $login = login($loguid,$logpass);
+    //$login = true; //Test For at kunne se om koden reagere
+}
+
+// -------- Hvis du logger ind succesfuldt -------- //
+if ($login){
+    $loginfo = get_user($loguid);
+    $logFName = $loginfo["firstname"];
+    $logEName = $loginfo["lastname"];
+    setcookie($cookie_name, $loguid, time()+ 60,"/"); // Laver en cookie vi kan tilgå hen over flere sider.
+}
+
+// -------- Tjekker om brugeren var logget ind tidligere -------- //
+if (isset($_COOKIE[$cookie_name])){
+    $uid = "";
+    $uid = $_COOKIE[$cookie_name];
+    $loginfo = get_user($uid);
+    $logFName = $loginfo["firstname"];
+    $logEName = $loginfo["lastname"];
+    $login = true;
+}
+?>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Dashboard</title>
+</head>
+<body>
+<header class="banner"">
+
+<!-- Formens opbygning -->
+<form class='login' method='post' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>'> <!-- Form start og hvor den sender dataene som formen indsamler. Bruger PHP for at referere til den nuværende side. -->
+    <div> User ID: <input type='text' name='loguid'> </div>
+    <div> Password: <input type='text' name='logpass'> </div>
+    <input type='submit' name='submit'  value='Submit'>
+</form>
+
+<?PHP
+    // -------- Fejlmeddellse for at man ikke logger in med de givne informationer  -------- //
+    if ($login === false){
+    echo "<div style='align-self: center'>Invalid UserID or Password</div>";
+    }
+?>
+</header>
+
+<div class='center'>
+<div class="containerCol" style="width: 60%;align-self: center">
+    <div class="topbar">
+        <?PHP
+            // -------- Visuelt ændring på Forsiden for at vise brugeren er logget ind -------- //
+            if ($login){
+                echo "Velkommen tilbage $logFName $logEName";
+            } else{
+                echo "Welkommen til Forsiden";
+            }
+        ?>
+    </div>
+    <div class="containerRow" style="width: 95%;align-self: center">
+        <div class="sidebar">
+            <div class="sidelist" style="<?PHP if ($login){echo "Height: 15vh;";}?>">
+                <a href="Dashboard.php">Dashboard</a>
+                <a href="#">Personal Page</a>
+                <a href="Users.php">Users</a>
+
+                <?PHP if ($login){echo "<a href='Secret.php'>Secret</a>";} ?>
+            </div>
+        </div>
+        <div class="feed"> <!-- Selve området oplagene er lagt -->
+            <?php
+                $postAmount = get_pids(); // Få fat i alle opslags id. Dette giver os også mængden af oplag, så vi kan bruge foreach loop til at løbe igennem alle oplagene på databasen
+                foreach($postAmount as $pid) { // Løber igennem alle opslagene og bruger den daværende id for hvert løb som variablen $pid
+
+                    // -------- Info til Opslaget -------- //
+                    $postInfo = get_post($pid); // Henter alle info der forekommer i opslaget. Man kan se hvad den henter i https://wits.ruc.dk/api.html
+                    $authorID = $postInfo['uid'];
+                    $authorInfo = get_user($postInfo['uid']); // Henter bruger info via den bruger id vi lige har hentet fra oplagets infomation
+                    $imageId = get_iids_by_pid($pid); // Pga. der kan være flere billeder skal vi først have alle iids raleteret til opslaget
+
+                    // -------- Variabler -------- //
+                    $fNavn = $authorInfo["firstname"];
+                    $eNavn = $authorInfo['lastname'];
+                    $postdate = $postInfo['date'];
+                    $titel = $postInfo['title'];
+                    $posttext = $postInfo['content'];
+
+                    // -------- HTMl yil opslaget -------- //
+                    echo "<div id='$pid'></div>";
+
+                    echo "<div class='post'>"; // Starter selve opbygningen af opslaget
+
+                    //Navn, tid og Titel på oplæg
+                    echo "<div class='containerRow' style='gap: 10px; background-color: lightslategray;'>"; // Styrer orienteringen, placering og størelsen af hele titelbaren.
+                    echo "<div class='postnametime'>"; // Orientere navn og tid over og under hinanden
+                    echo "<div class='postname'><a href='FriendPage.php?userid=$authorID'>$fNavn $eNavn</a></div>";
+                    echo "<div class='posttime'>$postdate</div>";
+                    echo "</div>"; // Afslutter postnametime
+                    echo "<div class='posttitle'>$titel</div>"; // Centrere tekst lodret i forhold til Parent komponent
+                    echo "</div>"; // AFlutter containerRow
+
+                    // Hent alle billeder der er tildelt oplægget
+                    echo "<div class='postimage'>"; // Laver en kasse til billedet.
+                    foreach ($imageId as $iids) { // Bruger de tidligere hentede billed id'er basseret på oslaget. De bruges ligeoms vi bruger post id'er i den større foreach.
+                        $imageinfo = get_image($iids); // Henter alt information på billidet
+                        $imageLink = $imageinfo['path']; // Hvert billede indholder en url til hvor billedet ligger på nettet.
+                        echo "<img src='$imageLink' alt='Image Url not responding' style='flex-shrink: 1; height: 200px;' >"; // Indsætter og skalerer billedet.
+                    }
+                    echo "</div>"; // Afslutter postimage
+
+                    // Indsæt oplæggets tekst
+                    echo "<div class='posttext'>$posttext</div>"; // Indsætter bare teksten
+
+                    // -------- Info Til kommentarer -------- //
+                    // Denne del forløber på samme møde som den store foreach bare med kommentar id i stedet for opslags id
+                    $commentId = get_cids_by_pid($pid);
+                    foreach ($commentId as $cids) {
+                        $commentInfo = get_comment($cids);
+                        $cauthorInfo = get_user($commentInfo['uid']);
+                        $cfNavn = $cauthorInfo["firstname"];
+                        $ceNavn = $cauthorInfo['lastname'];
+                        $commentDate = $commentInfo['date'];
+                        $commentText = $commentInfo['content'];
+
+                        // -------- HTML til kommentarer -------- //
+                        echo "<div class='comment'>";
+                        echo "<div class='commentUserInfo'>$cfNavn $ceNavn / $commentDate</div>";
+                        echo "<div class='commentText'>$commentText</div>";
+                        echo "</div>";
+                    }
+
+                    echo "<div>"; // Spacing på bunden af opslaget
+                    echo "</div>";
+                    echo "<div>";
+                    echo "</div>";
+                    echo "</div>";
+            }
+            ?>
+
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
