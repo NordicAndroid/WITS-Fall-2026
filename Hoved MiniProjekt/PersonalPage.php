@@ -16,10 +16,9 @@
         <div class="containerRow" style="justify-content: center; width: 95%;">
             <div class="sidebar">
                 <ul>
+                    <li><a href="Dashboard.php"> Dashboard</a></li>
                     <li><a href="#"> Personal Page</a></li>
-                    <li><a href="#"> Friends</a></li>
-                    <li><a href="#"> Users</a></li>
-
+                    <li><a href="Users.php"> Users</a></li>
                 </ul>
             </div>
             <div class="feed">
