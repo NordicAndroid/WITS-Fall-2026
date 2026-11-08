@@ -1,0 +1,583 @@
+/*
+ -------- Kilder brugt --------
+Position: https://www.w3schools.com/css/css_position.asp
+Borders: https://www.w3schools.com/css/css_border.asp
+Margin: https://www.w3schools.com/css/css_margin.asp
+Padding: https://www.w3schools.com/css/css_padding.asp
+Height/width: https://www.w3schools.com/css/css_height_width.asp
+Flex-box: https://www.w3schools.com/css/css3_flexbox.asp ; https://css-tricks.com/snippets/css/a-guide-to-flexbox/ ; https://www.joshwcomeau.com/css/center-a-div/
+
+Hvis i will se hvordan hver del er opbygget kan i fjerne kommentar symbolerne omkring background-color: på de forskellige dokumenter.
+ */
+
+button {
+    font-family: "Times New Roman";
+}
+
+body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.banner {
+    width: 100%;
+    height: 7.5vh;
+    background-color: lightslategray;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    position: relative;
+    top: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 5px;
+}
+
+.clock, .clock div{
+    background-color: #525e6b;
+    width:  11.5vw;
+    display: flex;
+    font-size: 1.4vw;
+
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+
+.login{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    gap: 10px;
+}
+
+.loginLabel{
+    height: 100%;
+    padding: 5px;
+    background-color: #525e6b;
+    font-size: 1.25vw;
+}
+
+.login input, .login button{
+    border: none;
+}
+
+.login button{
+    background-color: #525e6b;
+    font-size: 1.25vw;
+    width: 9vw;
+}
+
+.login button:hover{
+    background-color: #5e6c7a;
+}
+
+.navLogout{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.logOut{
+    height: 7.5vh;
+    width: 11.5vw;
+    background-color: #525e6b;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+.logOut button{
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #525e6b;
+    font-size: 2.5vh;
+}
+
+.logOut button:hover{
+    background-color: #5e6c7a;
+}
+
+.nULink{
+    flex-basis: 11.5vw;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-content: center;
+}
+
+.nULink a {
+    width: 11.5vw;
+    height: 100%;
+    background-color: #525e6b;
+    text-decoration: none;
+    font-size: 1.25vw;
+    color: black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.nULink a:hover{
+    background-color: #5e6c7a;
+}
+
+.center{
+    /* Egne Parameter */
+    width: 100%;
+    height: 92.5vh;
+    overflow: scroll;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.containerRow{
+    /* Egne Parameter */
+    width: 100%;
+    /* Hvis man ikke sætter en hæjde vil kontaineren skalere med inholdet*/
+
+    /* Parameter for Child komponenter*/
+    display: flex;
+    flex-direction: row; /* Sorterer child elementer vandret*/
+    gap: 2.5%; /* Procent virker kun vandret siden hjemmesiden kan være uendeligt lang og her derfor ikken en defineret længde*/
+}
+
+.containerCol{
+    /* Egne Parameter */
+    width: 100%;
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.topbar{
+    /* Egne Parameter */
+    width: 100%;
+    height: 70px;
+    background-color: lightgray;
+    margin-top: 25px;
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    font-size: x-large; /* Styrer størrlsen af teksten i kontaineren*/
+}
+
+.sidebar {
+    flex-basis: 12vw; /* Bestemmer den originale størrelse af et flex element*/
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidelist{
+    width: 12vw;
+    padding: 1%;
+    position: fixed;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.sidelist a{
+    width: 14vw;
+    height: 5vh;
+    background-color: lightslategray;
+    color: black;
+    text-decoration: none;
+    font-size: 1.1vw;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.7vw;
+}
+
+.sidelist a div{
+    width: 1vw;
+    margin-left: 0.7vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidelist a.active {
+    background-color: #525e6b;
+    color: #afafaf;
+}
+
+.sidelist a:hover {
+    background-color: #525e6b;
+}
+
+
+.mainContent {
+    padding: 1%;
+    flex-basis: 80%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12.5px;
+}
+
+.newPost {
+    width: 100%;
+    background-color: lightslategray;
+    border-style: solid;
+    border-color: lightslategray;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.newPost:hover {
+    border-color: #525e6b;
+}
+
+.accordion{
+    width: 100%;
+    height: 30px;
+    background-color: lightslategray;
+    cursor: pointer;
+    border: none;
+    border-color: lightslategray;
+    outline: none;
+    font-size: 2vh;
+}
+
+.accordion:hover{
+    background-color: #525e6b;
+    color: #afafaf;
+}
+
+
+.panel {
+    width: 100%;
+    background-color: white;
+    display: none;
+    overflow: hidden;
+}
+
+.nPForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px
+}
+
+.nPFElement {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.Rubrik{
+    width: 100%;
+    background-color: lightgrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.imageGal{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.feed{
+    /* Egne Parameter */
+    /*background-color: lightgrey;*/
+    width: 100%;
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 12.5px;
+}
+
+.post {
+    /* Egne Parameter */
+    width: 100%;
+    background-color: white;
+    border-style: solid;
+    border-color: lightslategray;
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.postnametime{
+    /* Egne Parameter */
+    padding: 0.5%;
+    flex-basis: 16vh;
+    height: 58px;
+    /*background-color: lightblue;*/
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+}
+
+.postname{
+    /* Egne Parameter */
+    flex-grow: 1; /* Bestemmer hvor meget den vil vokse i forhold til andre elementer i flex-boxen*/
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: center;
+    font-size: 0.9vw;
+    /*background-color: lightpink;*/
+}
+
+.posttime{
+    /* Egne Parameter */
+    flex-grow: 1;
+    /*background-color: lightcyan;*/
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    justify-content: center;
+    font-size: 0.75vw;
+    text-align: center;
+}
+
+.posttitle{
+    /* Egne Parameter */
+    padding: 0.5;
+    flex-grow: 1;
+    height: 58px;
+    /*background-color: lightslategray;*/
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: Row;
+    align-items: center;
+    font-size: 1.75vw;
+}
+
+.dropdown{
+    flex-basis: 10%;
+    height: 100%;
+    padding: 0.5%;
+}
+
+.dropbtn {
+    width: 100%;
+    height: 58px;
+    background-color: lightslategray;
+    border: none;
+    cursor: pointer;
+    font-size: 25px;
+    padding-right: 1vw;
+
+    display: flex;
+    flex-direction: Row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.dropdown-content{
+    display: none;
+    position: sticky;
+    width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #f9f9f9;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content form, .dropdown-content div{
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #f9f9f9;
+    display: block;
+}
+
+
+.dropdown-content input, .dropdown-content button{
+    width: 100%;
+    padding: 0;
+    font-size: 16px;
+    font-family: "Times New Roman";
+    background-color: #f9f9f9;
+    border: none;
+    text-align: start;
+    display: block;
+    cursor: pointer;
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.postimage{
+    /* Parameter For Child komponenter*/
+    width: 90%;
+    display: flex;
+    flex-direction: Row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.posttext{
+    width: 95%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.comment{
+    /* Egne Parameter */
+    width: 95%;
+
+    /* Parameter For Child komponenter*/
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-color: lightslategray;
+}
+
+.commentUserInfo{
+    background-color: lightslategray;
+    height: 18px;
+    padding: 5px;
+    border-color: lightslategray;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.commentText{
+    padding: 5px;
+}
+
+
+.newComment{
+    display: none;
+    width: 95%;
+    border-style: solid;
+    border-color: lightslategray;
+}
+
+.newComment form{
+    display: flex;
+    flex-direction: row;
+}
+
+.newComment form input{
+    flex-grow: 1;
+    border-radius: 0;
+    border: none;
+}
+
+/* ------------  New User css ------------  */
+
+.nUTitel{
+    width: 100%;
+    height: 5vh;
+    background-color: lightslategray;
+    font-size: 3vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.nUForm{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.nUForm div{
+    width: 100%;
+    height: 3vh;
+    border-style: solid;
+    border-color: #525e6b;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.nUForm p {
+    width: 13vw;
+    font-size: 1.1vw;
+    height: 100%;
+    margin: 0;
+    background-color: #525e6b;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nUForm input {
+    height: 100%;
+    padding: 0 2px;
+    outline: none;
+    border: none;
+    flex-grow: 1;
+}
