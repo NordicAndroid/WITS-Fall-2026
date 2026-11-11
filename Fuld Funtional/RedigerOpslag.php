@@ -39,7 +39,7 @@ if (isset($_SESSION["UserID"])) {
         <?php
         echo "<div class='newPost'>";
                 echo "<div style='background-color: white; width: 100%'>";
-                    echo "<form class='nPForm' method='post' enctype='multipart/form-data' style='margin: 0'>";
+                    echo "<form class='nPForm' method='post' enctype='multipart/form-data' style='margin: 0' action='RedigerOpslag.php'>";
                         echo "<div class='nPFElement'> <label class='Rubrik'>Titel på dit oplag:</label> <input type='text' name='nPtitel' style='flex-grow: 1' value='".$ptitel."'> </div>";
                         echo "<div class='nPFElement'> <label class='Rubrik'>Indholdet af dit oplag:</label> <textarea name='nPtext' style='width: 95%;height: 200px;resize: none;overflow: auto'>".$pteskt."</textarea></div>";
                         echo "<div class='nPFElement'> <label class='Rubrik'>Billeder</label> <input accept='.png,.jpeg,.jpg,.gif,.svg' type='File' id='files' name='nPImage[]' multiple> <output id='list' class='imageGal'></output> </div>";
@@ -53,6 +53,7 @@ if (isset($_SESSION["UserID"])) {
                             }
                         echo "</div>"; // Afslutter postimage
 
+                        echo "<input type='hidden' id='files' name='postID' value='$pID'>";
                         echo "<input type='submit' name='submit' class='accordion' value='Slå op'>";
                         echo "<input type='submit' name='submit' class='accordion' value='Fortryd' formaction='/~stud-olp/Hoved_MiniProjekt/Dashboard.php'>"; // VGV
                     echo "</form>";
@@ -66,6 +67,7 @@ if (isset($_SESSION["UserID"])) {
         $titel = $_POST["nPtitel"];
         $content = $_POST["nPtext"];
         var_dump($_POST);
+        var_dump($pID);
         modify_post($pID, $titel, $content); // VGV
 
         if (isset($_FILES['nPImage']['tmp_name'][0])) {
