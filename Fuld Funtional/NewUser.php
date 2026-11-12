@@ -72,7 +72,7 @@ END;
             let error1 = document.getElementById("Error1");
             let check = document.getElementById("caseCheck");
             if(/[A-Z]/.test(password) && /[a-z]/.test(password) && /[0-9]/.test(password) && /*/[^A-Za-z0-9]/.test(password) &&*/ password.length > 6){error1.style.display = "none";check.required = "true"}
-            else{error1.style.display = "flex";}
+            else{error1.style.display = "flex";check.required = "false"}
             console.log(check.required);
         }
 
@@ -83,7 +83,7 @@ END;
             let error2 =  document.getElementById("Error2");
             let check = document.getElementById("sameCheck");
             if (password.value === repeat.value){error2.style.display = "none";check.required = "true"}
-            else{error2.style.display = "flex";}
+            else{error2.style.display = "flex";check.required = "false"}
             console.log(check.required);
         }
     </script>
