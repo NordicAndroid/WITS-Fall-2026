@@ -67,12 +67,12 @@ echo "<title>$fNavn $eNavn's Page</title>"
             </div>
             <div class="feed" style="gap: 15px; margin-left: 2vw">
                 <?php
-                $postAmount = get_pids_by_uid($_GET["userid"]);
+                $postAmount = get_pids_by_uid($_GET["userid"]); // Henter alle opslag som er fre en specifik bruger
                 foreach($postAmount as $pid) {
 
                     // -------- Info til Opslaget -------- //
-                    $postInfo = get_post($pid); //
-                    $imageId = get_iids_by_pid($pid);
+                    $postInfo = get_post($pid); // Henter opslag inforamtion
+                    $imageId = get_iids_by_pid($pid); // Henter alle vedlagte billeder
 
                     // -------- Variabler -------- //
                     $postdate = $postInfo['date'];

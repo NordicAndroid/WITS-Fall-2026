@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $DBCheck = get_uids();
         if (in_array($loguid, $DBCheck)) {
             $login = login($loguid, $logpass);
-            if ($login) {$_SESSION["UserID"] = $loguid; header("Location: Dashboard.php");}else{$failedlogA = true;}
+            if ($login) {$_SESSION["UserID"] = $loguid; header("Location: Dashboard.php");}else{$failedlogB = true;}
         }
         else{$failedlogB = true;}
     }
@@ -64,9 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             echo "<div style='align-self: center'> <div class='loginLabel'> Password: </div> <input type='password' name='logpass'> </div>";
 
             // -------- Fejlmeddellse for at man fejler i at logge ind  -------- //
-            if ($failedlogA){
-                echo "<div style='align-self: center; background-color: #525e6b;padding: 5px'>Invalid Password </div>";
-            }
             if ($failedlogB){
                 echo "<div style='align-self: center;background-color: #525e6b;padding: 5px'>Invalid UserID or Password</div>";
             }
@@ -123,6 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
             <div class="mainContent">
                 <?php
+                // -------- HTML der tillader nye oplag, kun for registrede brugere-------- //
                 if ($login) {
                     echo <<<END
                         <div class='newPost' id="newPost">
@@ -194,19 +192,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                         echo "<div class='postname'><a href='FriendPage.php?userid=$authorID'>$fNavn $eNavn</a></div>";
                                         echo "<div class='posttime'>$postdate</div>";
                                     echo "</div>"; // Afslutter postnametime
-                                    echo "<div class='posttitle'>$titel</div>";// Centrere tekst lodret i forhold til Parent komponent
+                                    echo "<div class='posttitle'>$titel</div>";
 
+                                    // -------- Dropdown der tillader bruger at redigere, kommentere eller slette post -------- //
                                     if ($login) {
                                         echo '<div class="dropdown">';
                                                 echo '<button class="dropbtn"><i class="fa fa-plus"></i></button>';
                                                 echo '<div class="dropdown-content">';
-                                                        echo '<div><button onclick="NewComment('.$pid.')">Skriv Kommentar</button></div>';
-                                                    if ($authorID == $loguid) {
+                                                        echo '<div><button onclick="NewComment('.$pid.')">Skriv Kommentar</button></div>'; // Alle registrede bruger kan kommentere.
+                                                    if ($authorID == $loguid) { // Kun den bruger der skrev oplaget kan redigere og slette opslaget.
                                                         echo '<form method="post" action="/~stud-olp/Hoved_MiniProjekt/RedigerOpslag.php"> <input type="submit" name="button" value="Rediger opslag"> <input type="hidden" name="postID" value="'.$pid. '"> </form>'; // VGV
                                                         echo '<form method="post" action="/~stud-olp/Hoved_MiniProjekt/RedigerOpslag.php"> <input style="color: red" type="submit" name="deletePost"  value="Slet oplsag" > <input type="hidden" name="postIDDel" value="'.$pid.'"> </form>';
                                                     }
-                                                echo '</div>';
-                                        echo '</div>';
+                                                echo '</div>'; // Afslutter dropdown-content
+                                        echo '</div>'; // Afslutter dropdown
                                     }
 
                                 echo "</div>"; // Afslutter containerRow
@@ -227,9 +226,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                 // Denne del forløber på samme møde som den store foreach bare med kommentar id i stedet for opslags id
                                 $commentId = get_cids_by_pid($pid);
                                 foreach ($commentId as $cids) {
+                                    // -------- Info til Opslaget -------- //
                                     $commentInfo = get_comment($cids);
                                     $cauthorID = $commentInfo['uid'];
                                     $cauthorInfo = get_user($cauthorID);
+
+                                    // -------- Variabler -------- //
                                     $cfNavn = $cauthorInfo["firstname"];
                                     $ceNavn = $cauthorInfo['lastname'];
                                     $commentDate = $commentInfo['date'];
@@ -249,10 +251,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                                          <input type="hidden" name="postID" value="$pid">
                                                          </form>
                                                     END;
-                                                echo '</div>';
-                                            echo '</div>';
+                                                echo '</div>'; // Afslutter dropbtn
+                                            echo '</div>'; // Aflutter dropdown
                                         }
-                                        echo "</div>";
+                                        echo "</div>"; // Aflutter commentUserInfo
                                         echo "<div class='commentText'>$commentText</div>";
                                     echo "</div>"; // Afslutter comment
                                 }
@@ -270,7 +272,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
                                 echo "<div></div>"; // Spacing på bunden af opslaget
                             echo "</div>"; // Afslutter Post
-                            echo "<div id='$pid'></div>"; // Giver muligheden for at hoppe til et specifikt post.
+                            echo "<div id='$pid'></div>"; // Giver muligheden for at hoppe til et specifikt opslag via opslags id.
                     }
                     ?>
                     <script>
@@ -284,7 +286,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                             }
                         }
                     </script>
-                </div>
+                </div> <--!
             </div>
         </div>
     </div>

@@ -61,12 +61,12 @@ if(isset($_SESSION["UserID"])){
             </div>
             <div class="feed" style="gap: 15px; margin-left: 2vw">
                 <?php
-                $postAmount = get_pids_by_uid($_SESSION["UserID"]);
+                $postAmount = get_pids_by_uid($_SESSION["UserID"]); // Henter alle opslag som er fre en specifik bruger
                 foreach($postAmount as $pid) {
 
                     // -------- Info til Opslaget -------- //
-                    $postInfo = get_post($pid); //
-                    $imageId = get_iids_by_pid($pid);
+                    $postInfo = get_post($pid); // Henter opslag inforamtion
+                    $imageId = get_iids_by_pid($pid); // Henter alle vedlagte billeder
 
                     // -------- Variabler -------- //
                     $postdate = $postInfo['date'];
@@ -97,9 +97,13 @@ if(isset($_SESSION["UserID"])){
 
                         $commentId = get_cids_by_pid($pid);
                         foreach ($commentId as $cids) {
+
+                            // -------- Info til Opslaget -------- //
                             $commentInfo = get_comment($cids);
                             $cauthorID = $commentInfo['uid'];
                             $cauthorInfo = get_user($cauthorID);
+
+                            // -------- Variabler -------- //
                             $cfNavn = $cauthorInfo["firstname"];
                             $ceNavn = $cauthorInfo['lastname'];
                             $commentDate = $commentInfo['date'];
@@ -107,8 +111,7 @@ if(isset($_SESSION["UserID"])){
 
                             // -------- HTML til kommentarer -------- //
                             echo "<div class='comment'>";
-                            echo "<div class='commentUserInfo'> <div style='flex-grow: 1'>$cfNavn $ceNavn / $commentDate</div>";
-                            echo '</div>';
+                            echo "<div class='commentUserInfo'> <div style='flex-grow: 1'>$cfNavn $ceNavn / $commentDate</div></div>";
                             echo "<div class='commentText'>$commentText</div>";
                             echo "</div>"; // Afslutter comment
                         }

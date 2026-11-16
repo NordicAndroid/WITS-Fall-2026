@@ -5,7 +5,7 @@ session_start();
 // -------- Forbindelse til databasen for hele dokumentet-------- //
 require_once '/var/www/wits.ruc.dk/db.php';
 
-
+// -------- Tjek om man er logget ind -------- //
 $login = false;
 if(isset($_SESSION["UserID"])){
     $login = true;
@@ -19,7 +19,6 @@ if(isset($_SESSION["UserID"])){
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
 <title>Brugerliste</title>
 </head>
@@ -55,11 +54,11 @@ if(isset($_SESSION["UserID"])){
 
             <div class="feed" style="gap: 15px; margin-left: 2vw">
                 <?php
-                $userAmount = get_uids();
+                $userAmount = get_uids(); // Henter alle brugerID
                 foreach($userAmount as $uid) {
 
                     // -------- Info til Bruger-------- //
-                    $userInfo = get_user($uid); //
+                    $userInfo = get_user($uid); // Henter brugerens informationer
 
                     // -------- Variabler -------- //
                     $fNavn = $userInfo["firstname"];
