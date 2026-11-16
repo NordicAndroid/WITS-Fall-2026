@@ -57,8 +57,11 @@ if(isset($_SESSION["UserID"])){
                     <div id="Error2" style="display: none"><p style="margin-right: 3px">Error</p> Kodeord er ikke ens.</div>
                     <input type="hidden" id="caseCheck" required>
                     <input type="hidden" id="sameCheck" required>
-                    <input type='submit' name='submit' class='accordion' value='Opret Bruger' style="padding: 1vh 0;font-size: 2vh">
-                </form>                
+                    <input type='submit' name='submit' class='accordion' value='Opret Bruger' style="padding: 1vh 0;font-size: 2vh">      
+                </form>        
+                <form class="nUForm">
+                    <input type='submit' name='submit' class='accordion' value='Fortryd' formaction='/~stud-olp/Hoved_MiniProjekt/Dashboard.php' style="padding: 1vh 0;font-size: 2vh">
+                </form>        
             </div>
         </div>
 

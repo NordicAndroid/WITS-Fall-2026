@@ -66,7 +66,7 @@ if (isset($_SESSION["UserID"])) {
 
                         echo "<input type='hidden' id='files' name='postID' value='$pID'>";
                         echo "<input type='submit' name='submit' class='accordion' value='Slå op'>";
-                        echo "<input type='submit' name='submit' class='accordion' value='Fortryd' formaction='/~stud-olp/Hoved_MiniProjekt/Dashboard.php'>"; // VGV
+                        echo "<input type='submit' name='submit' class='accordion' value='Fortryd' formaction='/~stud-olp/Hoved_MiniProjekt/Dashboard.php'>";
                     echo "</form>";
                 echo "</div>";
         echo "</div>";
