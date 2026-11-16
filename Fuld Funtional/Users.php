@@ -9,7 +9,20 @@
 <title>User Database</title>
 </head>
 <body>
-<header class="banner"></header>
+<header class="banner">
+    <div class='clock' ><div id='clock'></div>
+        <script>
+            ClockUpdate();
+            setInterval(ClockUpdate, 1000);
+            function ClockUpdate() {
+                const clock = document.getElementById("clock");
+                const now = new Date();
+                const text = now.toLocaleTimeString();
+                clock.style.alignSelf = "center";
+                clock.innerHTML = text;
+            }
+        </script>
+</header>
 <div class="center">
     <div class="containerCol" style="width: 60%; align-self: center">
         <div class="topbar" style="justify-content: center">
