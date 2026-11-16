@@ -71,27 +71,50 @@ if(isset($_SESSION["UserID"])){
                     // -------- Variabler -------- //
                     $postdate = $postInfo['date'];
                     $titel = $postInfo['title'];
+                    $posttext = $postInfo['content'];
 
                     // -------- HTMl yil opslaget -------- //
                     echo "<div class='post'>";
 
-                    //Navn, tid og Titel på oplæg
-                    echo "<div class='containerRow' style='gap: 10px; background-color: lightslategray'>";
-                    echo "<div class='posttitle' style='flex-grow: 4;padding: 1.5%'><a href='Dashboard.php#$pid'>$titel</a></div>";
-                    echo "<div class='posttime' style='align-items: center; justify-content: end;padding: 1.5%;font-size: medium'>$postdate</div>";
-                    echo "</div>"; // AFlutter containerRow
+                        //Navn, tid og Titel på oplæg
+                        echo "<div class='containerRow' style='gap: 10px; background-color: lightslategray'>";
+                        echo "<div class='posttitle' style='flex-grow: 4;padding: 1.5%'><a href='Dashboard.php#$pid'>$titel</a></div>";
+                        echo "<div class='posttime' style='align-items: center; justify-content: end;padding: 1.5%;font-size: medium'>$postdate</div>";
+                        echo "</div>"; // AFlutter containerRow
 
-                    // Hent alle billeder der er tildelt oplægget
-                    if ($imageId > 0) {
-                        echo "<div class='postimage'>";
-                        foreach ($imageId as $iids) {
-                            $imageinfo = get_image($iids);
-                            $imageLink = $imageinfo['path'];
-                            echo "<img src='$imageLink' alt='Image Url not responding' style='flex-shrink: 1; max-height: 200px;' >";
+                        // Hent alle billeder der er tildelt oplægget
+                        if ($imageId > 0) {
+                            echo "<div class='postimage'>";
+                            foreach ($imageId as $iids) {
+                                $imageinfo = get_image($iids);
+                                $imageLink = $imageinfo['path'];
+                                echo "<img src='$imageLink' alt='Image Url not responding' style='flex-shrink: 1; max-height: 200px;' >";
                         }
-                        echo "</div>"; // Afslutter postimage
-                    }
+                            echo "</div>"; // Afslutter postimage
+
+                        // Indsæt oplæggets tekst
+                        echo "<div class='posttext'>$posttext</div>"; // Indsætter bare teksten
+
+                        $commentId = get_cids_by_pid($pid);
+                        foreach ($commentId as $cids) {
+                            $commentInfo = get_comment($cids);
+                            $cauthorID = $commentInfo['uid'];
+                            $cauthorInfo = get_user($cauthorID);
+                            $cfNavn = $cauthorInfo["firstname"];
+                            $ceNavn = $cauthorInfo['lastname'];
+                            $commentDate = $commentInfo['date'];
+                            $commentText = $commentInfo['content'];
+
+                            // -------- HTML til kommentarer -------- //
+                            echo "<div class='comment'>";
+                            echo "<div class='commentUserInfo'> <div style='flex-grow: 1'>$cfNavn $ceNavn / $commentDate</div>";
+                            echo '</div>';
+                            echo "<div class='commentText'>$commentText</div>";
+                            echo "</div>"; // Afslutter comment
+                        }
+                    echo "<div></div>";
                     echo "</div>";
+                    }
                 }
                 ?>
 
