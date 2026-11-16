@@ -31,7 +31,18 @@ if (isset($_SESSION["UserID"])) {
 </head>
 <body>
 <header class="banner">
-
+    <div class='clock' ><div id='clock'></div>
+        <script>
+            ClockUpdate();
+            setInterval(ClockUpdate, 1000);
+            function ClockUpdate() {
+                const clock = document.getElementById("clock");
+                const now = new Date();
+                const text = now.toLocaleTimeString();
+                clock.style.alignSelf = "center";
+                clock.innerHTML = text;
+            }
+        </script>
 </header>
 
 <div class='center'>
