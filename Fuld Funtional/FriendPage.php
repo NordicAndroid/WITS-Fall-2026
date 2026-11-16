@@ -1,19 +1,35 @@
+<?php
+// -------- Starter session -------- //
+session_start();
+
+// -------- Forbindelse til databasen for hele dokumentet-------- //
+require_once '/var/www/wits.ruc.dk/db.php';
+
+
+$login = false;
+if(isset($_SESSION["UserID"])){
+    $login = true;
+}
+
+$userid = $_GET["userid"];
+$authorInfo = get_user($userid);
+$fNavn = $authorInfo["firstname"];
+$eNavn = $authorInfo['lastname'];
+echo "<title>$fNavn $eNavn's Page</title>"
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
-    <?php
-    require_once '/var/www/wits.ruc.dk/db.php';
-    $userid = $_GET["userid"];
-    $authorInfo = get_user($userid);
-    $fNavn = $authorInfo["firstname"];
-    $eNavn = $authorInfo['lastname'];
-    echo "<title>$fNavn $eNavn's Page</title>"
-    ?>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <?php echo "<title>$fNavn $eNavn's Page</title>" ?>
 </head>
 <body>
-<header class="banner">
+<header class="banner" style="justify-content: start;">
     <div class='clock' ><div id='clock'></div>
         <script>
             ClockUpdate();
@@ -28,7 +44,7 @@
         </script>
 </header>
 <div class="center">
-    <div class="containerCol" style="width: 60%;align-self: center">
+    <div class="containerCol" style="width: 70%;align-self: center">
         <div class="topbar" style="justify-content: space-between">
             <?php
             $userid = $_GET["userid"];
@@ -36,21 +52,20 @@
             $fNavn = $authorInfo["firstname"];
             $eNavn = $authorInfo['lastname'];
             $dateJoin = $authorInfo['date'];
-            echo "<div style='justify-content: start;font-size: large;flex-basis: 20%;'> Brugerid: $userid</div>";
-            echo "<div>$fNavn $eNavn</div>";
-            echo "<div style='justify-content: end;font-size: large;flex-basis: 20%;text-align: end;'>Dato tilføjet: $dateJoin</div>";
+            echo "<div style='margin-left: 1vw'>$fNavn $eNavn</div>";
+            echo "<div style='justify-content: end;font-size: large;flex-basis: 20%;text-align: end;margin-right: 1vw'>Dato tilføjet: $dateJoin</div>";
             ?>
 
         </div>
-        <div class="containerRow" style="justify-content: center; width: 95%;align-self: center">
+        <div class="containerRow" style="justify-content: center; width: 95%;align-self: center;margin-left: 2vw">
             <div class="sidebar">
-                <ul>
-                    <li><a href="Dashboard.php"> Dashboard</a></li>
-                    <li><a href="#"> Personal Page</a></li>
-                    <li><a href="Users.php"> Users</a></li>
-                </ul>
+                <div class="sidelist">
+                    <a  href="Dashboard.php"> <div><i class="fa fa-home"></i></div><p>Hovedside</p></a>
+                    <?PHP if ($login){echo "<a href='PersonalPage.php'><div><i class='fa fa-user''></i></div><p>Personlig Side</p></a>";} ?>
+                    <a href="Users.php"><div><i class="fa fa-users" style="font-size: 1vw;"></i></div><p>Brugere</p></a>
+                </div>
             </div>
-            <div class="feed">
+            <div class="feed" style="gap: 15px; margin-left: 2vw">
                 <?php
                 $postAmount = get_pids_by_uid($_GET["userid"]);
                 foreach($postAmount as $pid) {
@@ -78,7 +93,7 @@
                         foreach ($imageId as $iids) {
                             $imageinfo = get_image($iids);
                             $imageLink = $imageinfo['path'];
-                            echo "<img src='$imageLink' alt='Image Url not responding' style='flex-shrink: 1; height: 200px;' >";
+                            echo "<img src='$imageLink' alt='Image Url not responding' style='flex-shrink: 1; max-height: 200px;' >";
                         }
                         echo "</div>"; // Afslutter postimage
                     }
